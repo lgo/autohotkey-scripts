@@ -2,7 +2,7 @@
 
 Device event listener is a set of AutoHotkey scripts for triggering scripts on device attach or detach events.
 
-For example, one use-case is triggering a script when connecting a USB mouse.
+For example, one use-case is triggering a script when connecting a USB mouse. `SwapMonitorOnMouseDetach` is a specific customization! It runs a program to swap my monitor's input source when my mouse disconnects, effectively making my USB switch also a monitor KVM.
 
 JPV (Oldman) is the author of this fine work, which was originally shared at https://autohotkey.com/board/topic/113924-register-device-for-notifications/#entry664788.
 

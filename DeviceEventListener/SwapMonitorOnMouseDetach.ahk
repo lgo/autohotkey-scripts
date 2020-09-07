@@ -310,7 +310,7 @@ ApplyDeviceChange(wParam, lParam, msg, hWnd)
 	
 	if (wParam = DBT_DEVICEREMOVECOMPLETE)
 	{
-		Run, D:\Programs\Utilities\HIDMacros\HIDMacros.exe
+		Run, C:\Users\joey\bin\ddcset.exe -i "GM204-A/2147881089:SVideo" setvcp 60 15
 	}
 	
 	return
