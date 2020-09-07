@@ -55,6 +55,7 @@ Author
 ------
 
 	JPV alias Oldman
+	Joey Pereira (joey@pereira.io)
 */
 
 #Include <EnumDeviceInterfaceClasses>
@@ -62,7 +63,14 @@ Author
 global DIGCF_DEFAULT = 0x1
 global DIGCF_PRESENT = 0x2
 global DIGCF_PROFILE = 0x8
-	
+
+/**
+ * 64Bit determines if the Windows system is 64bit.
+ */
+64Bit() {
+    Return (FileExist("C:\Program Files (x86)")) ? 1 : 0
+}
+
 /*
 ==============================================================================================
 	ListDeviceInterfaces(Device, Identifier, InterfaceGUID, Flags)
@@ -568,7 +576,12 @@ EnumerateDeviceInterfaces(_hDevInfo, ByRef _identifier, ByRef _interfaceGUID, By
 		; Retrieve the Device Interface Detail Structure
 		;------------------------------------------------
 		; DWORD + TCHAR[ANYSIZE_ARRAY]
-		lLen        := 4 + TCHAR_SIZE
+		;
+		; DeviceInterfaceData varies the size depending on whether the machine is 32-bit or 64-bit.
+		; See:
+		;  * https://docs.microsoft.com/en-us/windows/win32/api/setupapi/nf-setupapi-setupdienumdeviceinterfaces
+		;  * https://stackoverflow.com/questions/33082991/p-invoke-setupdigetdeviceinterfacedetail-returning-1784
+		lLen        := 4 + TCHAR_SIZE + (64Bit() ? 2 : 0)
 		lBufferSize := lLen + LINE_SIZE + TCHAR_SIZE
 		VarSetCapacity(lDeviceInterfaceDetailData, lBufferSize, 0)
 		NumPut(lLen, lDeviceInterfaceDetailData, 0, "UInt")
